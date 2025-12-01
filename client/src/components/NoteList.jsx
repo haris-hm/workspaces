@@ -1,12 +1,19 @@
 import NoteItem from "./NoteItem";
 
-function NoteList({ className }) {
-  const notes = ["Test 1", "Test 2", "Test 3"];
-
+function NoteList({ notes, onSelectNote, className }) {
   return (
-    <div className={`flex flex-col border-r-3 border-gray-700 ${className}`}>
+    <div className={`flex flex-col ${className}`}>
       {notes.map((note) => {
-        return <NoteItem title={note} />;
+        const noteId = note._id;
+        return (
+          <NoteItem
+            note={note}
+            key={noteId}
+            onClick={() => {
+              onSelectNote(noteId);
+            }}
+          />
+        );
       })}
     </div>
   );
