@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function WorkspaceCreatorModal({ display, onCloseModal }) {
+function WorkspaceCreatorModal({ display, showCloseButton, onCloseModal }) {
   const [hoveringCloseButton, setHoveringCloseButton] = useState(false);
 
   return (
@@ -10,7 +10,9 @@ function WorkspaceCreatorModal({ display, onCloseModal }) {
       }`}
     >
       <button
-        className="absolute top-4 right-4 cursor-pointer"
+        className={`absolute top-4 right-4 cursor-pointer ${
+          showCloseButton ? "" : "hidden"
+        }`}
         onClick={onCloseModal}
         onMouseEnter={() => setHoveringCloseButton(true)}
         onMouseLeave={() => setHoveringCloseButton(false)}

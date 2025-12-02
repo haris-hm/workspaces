@@ -16,7 +16,7 @@ function NoteItem({ note, onClick, blockOpen }) {
       onClick={onClick}
       disabled={blockOpen}
     >
-      <h1 className="text-lg font-semibold text-left">{note.title}</h1>
+      <h1 className="text-lg font-semibold text-left truncate">{note.title}</h1>
       <img
         src="/icons/right-arrow.svg"
         className={`w-8 h-8 ${isHovered ? "" : "invisible"}`}
