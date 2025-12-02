@@ -2,6 +2,7 @@ import NavBar from "./components/NavBar";
 import NoteList from "./components/NoteList";
 import NoteEditor from "./components/NoteEditor";
 import InfoSidebar from "./components/InfoSidebar";
+import WorkspaceCreatorModal from "./components/WorkspaceCreatorModal";
 
 import { useState } from "react";
 
@@ -71,6 +72,7 @@ const testNotes = [
 function App() {
   const [notes, setNotes] = useState(testNotes);
   const [currentNote, setCurrentNote] = useState(testNotes[0]);
+  const [openWorkspaceCreator, setOpenWorkspaceCreator] = useState(false);
 
   function selectNote(noteId) {
     const note = notes.find((n) => n._id === noteId);
@@ -101,13 +103,28 @@ function App() {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col bg-stone-100">
-      <NavBar />
-      <div className="flex flex-row w-full flex-1 min-h-0">
+    <div className="w-screen h-screen relative flex flex-col bg-stone-100">
+      <NavBar
+        onOpenModal={() => {
+          setOpenWorkspaceCreator(!openWorkspaceCreator);
+        }}
+      />
+      <WorkspaceCreatorModal
+        display={openWorkspaceCreator}
+        onCloseModal={() => {
+          setOpenWorkspaceCreator(false);
+        }}
+      />
+      <div
+        className={`flex flex-row w-full flex-1 min-h-0 ${
+          openWorkspaceCreator ? "blur-[3px] select-none" : ""
+        }`}
+      >
         <div className="relative flex flex-col w-1/6 border-r-3 border-gray-700">
           <NoteList
             notes={notes}
             onSelectNote={selectNote}
+            blockOpen={openWorkspaceCreator}
             className="w-full flex-1 min-h-0 overflow-y-auto pt-4 pb-15"
           />
           <button
@@ -127,6 +144,7 @@ function App() {
         <NoteEditor
           className="w-2/3 h-full pt-2"
           note={currentNote}
+          blockEdits={openWorkspaceCreator}
           onChangeNote={changeNote}
         />
 

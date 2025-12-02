@@ -1,6 +1,6 @@
 import NoteItem from "./NoteItem";
 
-function NoteList({ notes, onSelectNote, className = "" }) {
+function NoteList({ notes, onSelectNote, blockOpen, className = "" }) {
   return (
     <div className={`flex flex-col ${className}`}>
       {notes.map((note) => {
@@ -12,6 +12,7 @@ function NoteList({ notes, onSelectNote, className = "" }) {
             onClick={() => {
               onSelectNote(noteId);
             }}
+            blockOpen={blockOpen}
           />
         );
       })}

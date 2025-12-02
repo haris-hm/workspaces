@@ -1,4 +1,4 @@
-function NoteEditor({ note, onChangeNote, className }) {
+function NoteEditor({ note, onChangeNote, blockEdits, className = "" }) {
   return (
     <div className={`flex flex-col ${className}`}>
       <div className="w-full pt-4 px-4">
@@ -8,6 +8,7 @@ function NoteEditor({ note, onChangeNote, className }) {
           placeholder="Title..."
           value={note.title}
           onChange={(e) => onChangeNote({ ...note, title: e.target.value })}
+          disabled={blockEdits}
         />
         <hr className="border border-gray-600" />
       </div>
@@ -16,6 +17,8 @@ function NoteEditor({ note, onChangeNote, className }) {
         className="h-full resize-none outline-0 p-4"
         value={note.content}
         onChange={(e) => onChangeNote({ ...note, content: e.target.value })}
+        placeholder="What's on your mind?..."
+        disabled={blockEdits}
       />
     </div>
   );
