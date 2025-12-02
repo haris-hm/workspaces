@@ -13,7 +13,7 @@ function NoteItem({ note, onClick }) {
       }}
       onClick={onClick}
     >
-      <h1 className="text-lg font-semibold">{note.title}</h1>
+      <h1 className="text-lg font-semibold text-left">{note.title}</h1>
       <img
         src="/icons/right-arrow.svg"
         className={`w-8 h-8 ${isHovered ? "" : "invisible"}`}
