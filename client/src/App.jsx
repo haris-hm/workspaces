@@ -69,37 +69,64 @@ const testNotes = [
 ];
 
 function App() {
+  const [notes, setNotes] = useState(testNotes);
   const [currentNote, setCurrentNote] = useState(testNotes[0]);
 
   function selectNote(noteId) {
-    const note = testNotes.find((n) => n._id === noteId);
+    const note = notes.find((n) => n._id === noteId);
     if (note) {
       setCurrentNote(note);
     }
   }
 
+  function changeNote(updatedNote) {
+    setNotes(
+      notes.map((note) => (note._id === updatedNote._id ? updatedNote : note))
+    );
+    setCurrentNote(updatedNote);
+  }
+
+  function createNewNote() {
+    const newTestNote = {
+      _id: crypto.randomUUID(),
+      workspaceId: "5f8d0d55b54764421b7156c1",
+      title: "Untitled",
+      content: "",
+      tags: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setNotes([newTestNote, ...notes]);
+    setCurrentNote(newTestNote);
+  }
+
   return (
-    <div className="w-screen h-screen flex flex-col justify-center items-center bg-stone-100">
+    <div className="w-screen h-screen flex flex-col bg-stone-100">
       <NavBar />
-      <div className="flex flex-row w-full h-full">
-        <div className="flex flex-col w-1/6 h-full pt-4 justify-between border-r-3 border-gray-700">
+      <div className="flex flex-row w-full flex-1 min-h-0">
+        <div className="relative flex flex-col w-1/6 border-r-3 border-gray-700">
           <NoteList
-            notes={testNotes}
+            notes={notes}
             onSelectNote={selectNote}
-            className="w-full h-full"
+            className="w-full flex-1 min-h-0 overflow-y-auto pt-4 pb-15"
           />
-          <button className="flex flex-row items-center justify-center mx-2 my-2 py-2 px-4 gap-2 bg-blue-800 rounded-lg border-blue-700 hover:brightness-110 active:brightness-90 cursor-pointer">
+          <button
+            onClick={createNewNote}
+            className="absolute inset-x-0 bottom-0 flex flex-row items-center justify-center mx-2 mb-2 py-2 px-4 gap-2 bg-blue-800 rounded-lg drop-shadow-md drop-shadow-gray-500 border-blue-700 hover:brightness-110 active:brightness-90 cursor-pointer shrink-0"
+          >
             <img src="icons/plus-circle.svg" className="w-5 h-5" />
             <p className="text-xl text-center text-gray-100 font-semibold">
               New Note
             </p>
           </button>
         </div>
+
         <NoteEditor
           className="w-2/3 h-full pt-2"
           note={currentNote}
-          onChangeNote={(note) => setCurrentNote(note)}
+          onChangeNote={changeNote}
         />
+
         <InfoSidebar note={currentNote} className="w-1/6 h-full pt-4" />
       </div>
     </div>

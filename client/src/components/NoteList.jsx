@@ -1,6 +1,6 @@
 import NoteItem from "./NoteItem";
 
-function NoteList({ notes, onSelectNote, className }) {
+function NoteList({ notes, onSelectNote, className = "" }) {
   return (
     <div className={`flex flex-col ${className}`}>
       {notes.map((note) => {
