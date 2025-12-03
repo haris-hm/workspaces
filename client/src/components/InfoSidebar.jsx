@@ -15,7 +15,9 @@ function InfoSidebar({ note, workspace, className = "" }) {
     : null;
 
   return (
-    <div className={`flex flex-col border-l-3 border-gray-700 ${className}`}>
+    <div
+      className={`flex flex-col justify-between border-l-3 border-gray-700 ${className}`}
+    >
       <div className="flex flex-col px-4 py-2">
         {updatedAt && (
           <>
@@ -34,6 +36,13 @@ function InfoSidebar({ note, workspace, className = "" }) {
             </div>
           </>
         )}
+      </div>
+
+      <div className="flex flex-col items-center border-t-2 rounded-2xl pt-2 pb-2 border-gray-700">
+        <h1 className="text-2xl font-semibold select-none">
+          Current Workspace:
+        </h1>
+        <h2 className="text-4xl font-bold select-all">{workspace?.code}</h2>
       </div>
     </div>
   );

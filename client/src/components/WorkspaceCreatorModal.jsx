@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-function WorkspaceCreatorModal({ display, showCloseButton, onCloseModal }) {
+import WorkspaceForm from "./WorkspaceForm.jsx";
+
+function WorkspaceCreatorModal({
+  display,
+  onJoinWorkspace,
+  onCreateWorkspace,
+  showCloseButton,
+  onCloseModal,
+}) {
   const [hoveringCloseButton, setHoveringCloseButton] = useState(false);
 
   return (
@@ -27,7 +35,11 @@ function WorkspaceCreatorModal({ display, showCloseButton, onCloseModal }) {
           className="size-6"
         />
       </button>
-      <h2 className="text-2xl font-semibold mb-4">Create a New Workspace</h2>
+      <WorkspaceForm
+        onCreateWorkspace={onCreateWorkspace}
+        onJoinWorkspace={onJoinWorkspace}
+        onSuccess={onCloseModal}
+      />
     </div>
   );
 }

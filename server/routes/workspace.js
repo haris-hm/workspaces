@@ -2,14 +2,12 @@ const express = require("express");
 const router = express.Router();
 const newWorkspaceCode = require("../utils/codes").newWorkspaceCode;
 const Workspace = require("../models/Workspace");
-const Note = require("../models/Note");
 
-// GET all notes attached to workspace
+// GET a specific workspace by code
 router.get("/:code", async (req, res) => {
   try {
     const workspace = await Workspace.findOne({ code: req.params.code });
-    const notes = await Note.find().where("workspaceId").equals(workspace._id);
-    res.json(notes);
+    res.json(workspace);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

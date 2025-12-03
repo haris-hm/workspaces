@@ -18,8 +18,8 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
-app.use("/workspace", workspaceRouter);
-app.use("/note", notesRouter);
+app.use("/api/workspace", workspaceRouter);
+app.use("/api/note", notesRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
