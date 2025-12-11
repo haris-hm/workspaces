@@ -9,3 +9,5 @@ function workspaceSockets(io, socket) {
     console.log(`Socket ${socket.id} left workspace ${socket.workspaceId}`);
   });
 }
+
+module.exports = workspaceSockets;

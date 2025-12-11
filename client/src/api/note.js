@@ -1,4 +1,4 @@
-const API_URL = `${import.meta.env.VITE_BACKEND_URL}/note`;
+const API_URL = `${import.meta.env.VITE_API_URL}/note`;
 export const getNotes = async (workspaceId) => {
   const response = await fetch(`${API_URL}?workspaceId=${workspaceId}`);
   if (!response.ok) {
@@ -21,7 +21,7 @@ export const createNote = async (data) => {
   return await response.json();
 };
 
-export const updateNote = async (id, data) => {
+export const changeNote = async (id, data) => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {

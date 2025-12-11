@@ -12,11 +12,16 @@ const workspaceRouter = require("./routes/workspace");
 const noteSockets = require("./sockets/noteSockets");
 const workspaceSockets = require("./sockets/workspaceSockets");
 
+const allowedOrigins = process.env.CORS_ORIGINS.split(",") || [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+];
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   },
@@ -25,7 +30,7 @@ const io = new Server(server, {
 // Middleware
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
