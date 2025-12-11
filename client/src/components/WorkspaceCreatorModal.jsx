@@ -35,10 +35,14 @@ function WorkspaceCreatorModal({
           className="size-6"
         />
       </button>
+      <h1 className="text-3xl font-semibold mb-6">
+        Join or create a workspace
+      </h1>
       <WorkspaceForm
         onCreateWorkspace={onCreateWorkspace}
         onJoinWorkspace={onJoinWorkspace}
         onSuccess={onCloseModal}
+        className="w-3/4"
       />
     </div>
   );

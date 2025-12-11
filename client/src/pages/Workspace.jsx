@@ -47,6 +47,7 @@ function Workspace({
   return (
     <div className="w-screen h-screen relative flex flex-col bg-stone-100">
       <NavBar
+        name={name}
         workspace={currentWorkspace}
         onOpenModal={() => {
           setOpenWorkspaceCreator(!openWorkspaceCreator);

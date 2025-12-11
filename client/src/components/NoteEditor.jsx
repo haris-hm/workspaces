@@ -6,7 +6,7 @@ function NoteEditor({ note, onChangeNote, blockEdits, className = "" }) {
           <div className="w-full pt-4 px-4">
             <input
               type="text"
-              className="outline-0 mb-2 text-2xl font-bold"
+              className="outline-0 mb-2 text-2xl font-bold w-full"
               placeholder="Title..."
               value={note.title}
               onChange={(e) => onChangeNote({ ...note, title: e.target.value })}

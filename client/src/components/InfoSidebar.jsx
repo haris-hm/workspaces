@@ -42,7 +42,10 @@ function InfoSidebar({ note, workspace, className = "" }) {
         <h1 className="text-2xl font-semibold select-none">
           Current Workspace:
         </h1>
-        <h2 className="text-4xl font-bold select-all">{workspace?.code}</h2>
+        <div className="flex flex-row text-4xl font-bold ">
+          <h2 className="select-none">#</h2>
+          <h2 className="select-all">{workspace?.code}</h2>
+        </div>
       </div>
     </div>
   );

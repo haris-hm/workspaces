@@ -17,7 +17,7 @@ function WorkspaceForm({
       >
         Already have a workspace code?
       </label>
-      <div className="flex flex-row w-full gap-1">
+      <form className="flex flex-row w-full gap-1 mb-6">
         <input
           name="workspaceCode"
           type="text"
@@ -31,8 +31,9 @@ function WorkspaceForm({
           maxLength={6}
         />
         <button
-          className="flex flex-row justify-center items-center py-2 bg-blue-800 rounded-2xl h-full w-1/5"
-          onClick={async () => {
+          className="flex flex-row justify-center items-center py-2 bg-blue-800 rounded-2xl h-full w-1/5 hover:brightness-110 active:brightness-90 cursor-pointer"
+          onClick={async (e) => {
+            e.preventDefault();
             const result = await onJoinWorkspace(workspaceCode);
             if (!result?.error) {
               onSuccess(result);
@@ -46,15 +47,15 @@ function WorkspaceForm({
             className="invert size-6"
           />
         </button>
-      </div>
+      </form>
 
       <label
-        htmlFor="workspaceCode"
-        className="font-medium text-left text-lg mt-6 mb-2"
+        htmlFor="workspaceName"
+        className="font-medium text-left text-lg mb-2"
       >
         If not, what should we call it?
       </label>
-      <div className="flex flex-row w-full gap-1">
+      <form className="flex flex-row w-full gap-1">
         <input
           name="workspaceName"
           type="text"
@@ -66,8 +67,9 @@ function WorkspaceForm({
           maxLength={25}
         />
         <button
-          className="flex flex-row justify-center items-center py-2 bg-blue-800 rounded-2xl h-full w-1/5"
-          onClick={async () => {
+          className="flex flex-row justify-center items-center py-2 bg-blue-800 rounded-2xl h-full w-1/5 hover:brightness-110 active:brightness-90 cursor-pointer"
+          onClick={async (e) => {
+            e.preventDefault();
             const result = await onCreateWorkspace(workspaceName);
             if (!result?.error) {
               onSuccess(result);
@@ -81,7 +83,7 @@ function WorkspaceForm({
             className="invert size-6"
           />
         </button>
-      </div>
+      </form>
     </div>
   );
 }

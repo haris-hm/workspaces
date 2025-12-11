@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 import Workspace from "./pages/Workspace";
 import Landing from "./pages/Landing";
@@ -6,8 +6,11 @@ import Landing from "./pages/Landing";
 import { createWorkspace, getWorkspace } from "./api/workspace";
 
 function App() {
-  const [currentWorkspace, setCurrentWorkspace] = useState(null);
-  const [name, setName] = useState("");
+  const [currentWorkspace, setCurrentWorkspace] = useLocalStorage(
+    "workspace",
+    null
+  );
+  const [name, setName] = useLocalStorage("name", "");
 
   async function handleJoinWorkspace(code) {
     const result = await getWorkspace(code)
