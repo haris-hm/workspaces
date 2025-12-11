@@ -1,4 +1,4 @@
-function InfoSidebar({ note, workspace, className = "" }) {
+function InfoSidebar({ note, workspace, onDeleteNote, className = "" }) {
   const dateOptions = {
     year: "numeric",
     month: "short",
@@ -38,13 +38,29 @@ function InfoSidebar({ note, workspace, className = "" }) {
         )}
       </div>
 
-      <div className="flex flex-col items-center border-t-2 rounded-2xl pt-2 pb-2 border-gray-700">
-        <h1 className="text-2xl font-semibold select-none">
-          Current Workspace:
-        </h1>
-        <div className="flex flex-row text-4xl font-bold ">
-          <h2 className="select-none">#</h2>
-          <h2 className="select-all">{workspace?.code}</h2>
+      <div className="flex flex-col">
+        <button
+          onClick={() => {
+            if (note) onDeleteNote(note._id);
+          }}
+          className={`flex flex-row align-middle items-center justify-center mx-2 mb-2 py-2 px-4 gap-2 bg-red-700 rounded-lg drop-shadow-md drop-shadow-gray-500shrink-0 hover:brightness-110 active:brightness-90 cursor-pointer ${
+            note ? "" : "hidden"
+          }`}
+        >
+          <img src="icons/plus-circle.svg" className="size-5 max-md:size-10" />
+          <p className="max-md:hidden text-xl text-center text-gray-100 font-semibold">
+            Delete Note
+          </p>
+        </button>
+
+        <div className="flex flex-col items-center border-t-2 rounded-2xl pt-2 pb-2 border-gray-700">
+          <h1 className="text-2xl font-semibold select-none">
+            Current Workspace:
+          </h1>
+          <div className="flex flex-row text-4xl font-bold ">
+            <h2 className="select-none">#</h2>
+            <h2 className="select-all">{workspace?.code}</h2>
+          </div>
         </div>
       </div>
     </div>

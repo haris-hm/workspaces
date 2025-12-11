@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import NavBar from "../components/NavBar";
 import NoteList from "../components/NoteList";
 import NoteEditor from "../components/NoteEditor";
 import InfoSidebar from "../components/InfoSidebar";
 import WorkspaceCreatorModal from "../components/WorkspaceCreatorModal";
+
+import { createNote, getNotes, updateNote, deleteNote } from "../api/note";
 
 function Workspace({
   name,
@@ -16,6 +18,15 @@ function Workspace({
   const [currentNote, setCurrentNote] = useState(null);
   const [openWorkspaceCreator, setOpenWorkspaceCreator] = useState(false);
 
+  useEffect(() => {
+    if (currentWorkspace) {
+      getNotes(currentWorkspace._id).then((notes) => {
+        console.log(notes);
+        setNotes(notes);
+      });
+    }
+  }, [currentWorkspace]);
+
   function selectNote(noteId) {
     const note = notes.find((n) => n._id === noteId);
     if (note) {
@@ -24,24 +35,30 @@ function Workspace({
   }
 
   function changeNote(updatedNote) {
+    updateNote(updatedNote._id, {
+      title: updatedNote.title,
+      content: updatedNote.content,
+    });
     setNotes(
       notes.map((note) => (note._id === updatedNote._id ? updatedNote : note))
     );
     setCurrentNote(updatedNote);
   }
 
-  function createNewNote() {
-    const newTestNote = {
-      _id: crypto.randomUUID(),
-      workspaceId: "5f8d0d55b54764421b7156c1",
-      title: "Untitled",
-      content: "",
-      tags: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    setNotes([newTestNote, ...notes]);
-    setCurrentNote(newTestNote);
+  async function createNewNote() {
+    const newNote = await createNote({
+      workspaceId: currentWorkspace._id,
+    });
+    setNotes([newNote, ...notes]);
+    setCurrentNote(newNote);
+  }
+
+  function handleDeleteNote(noteId) {
+    if (currentNote && currentNote._id === noteId) {
+      setCurrentNote(null);
+    }
+    deleteNote(noteId);
+    setNotes(notes.filter((note) => note._id !== noteId));
   }
 
   return (
@@ -103,6 +120,7 @@ function Workspace({
         <InfoSidebar
           note={currentNote}
           workspace={currentWorkspace}
+          onDeleteNote={handleDeleteNote}
           className="w-1/6 h-full pt-4"
         />
       </div>

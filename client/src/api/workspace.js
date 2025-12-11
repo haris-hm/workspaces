@@ -9,7 +9,6 @@ export const getWorkspace = async (joinCode) => {
 };
 
 export const createWorkspace = async (data) => {
-  console.log("Stringifying data:", JSON.stringify(data));
   const response = await fetch(API_URL, {
     method: "POST",
     headers: {

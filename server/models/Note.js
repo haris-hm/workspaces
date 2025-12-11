@@ -9,11 +9,10 @@ const noteSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: true,
+      default: "Untitled",
     },
     content: {
       type: String,
-      required: true,
       default: "",
     },
     tags: {

@@ -2,11 +2,22 @@ const express = require("express");
 const router = express.Router();
 const Note = require("../models/Note");
 
-// GET all notes
+// GET all notes for workspace
 router.get("/", async (req, res) => {
   try {
-    const notes = await Note.find();
-    res.json(notes);
+    const workspaceId = req.query.workspaceId;
+    const notes = await Note.find({ workspaceId });
+    return res.json(notes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// GET all notes for workspace
+router.get("/:id", async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    return res.json(note);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -15,9 +26,9 @@ router.get("/", async (req, res) => {
 // POST new note
 router.post("/", async (req, res) => {
   try {
+    console.log("Received POST request with body:", req.body);
     const note = new Note({
       workspaceId: req.body.workspaceId,
-      title: req.body.title,
     });
 
     const savedNote = await note.save();
