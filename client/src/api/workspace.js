@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/api/workspace";
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/workspace`;
 
 export const getWorkspace = async (joinCode) => {
   const response = await fetch(`${API_URL}/${joinCode}`);

@@ -1,5 +1,4 @@
-const API_URL = "http://localhost:3001/api/note";
-
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/note`;
 export const getNotes = async (workspaceId) => {
   const response = await fetch(`${API_URL}?workspaceId=${workspaceId}`);
   if (!response.ok) {

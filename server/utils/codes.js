@@ -1,5 +1,4 @@
 function newWorkspaceCode(currentCodes) {
-  console.log(currentCodes);
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numbers = "0123456789";
 
