@@ -73,7 +73,10 @@ function WorkspaceForm({
           name="workspaceName"
           type="text"
           onChange={(e) => {
-            e.target.value = e.target.value.replace(/[^A-Za-z0-9_\-\s'"]/g, "");
+            e.target.value = e.target.value.replace(
+              /[^A-Za-z0-9_\-\s'"’]/g,
+              ""
+            );
             setWorkspaceName(e.target.value);
           }}
           className="text-2xl font-semibold outline-none rounded-lg border-gray-700 border-2 w-full"

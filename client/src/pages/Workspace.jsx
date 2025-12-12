@@ -249,7 +249,7 @@ function Workspace({
           openWorkspaceCreator ? "blur-[3px] select-none" : ""
         }`}
       >
-        <div className="relative flex flex-col w-full max-md:max-h-75 order-3 md:order-1 md:w-1/4 lg:w-1/6 max-md:mt-4 max-md:mb-2 md:border-r-3 max-md:py-1 max-md:border-t-3 max-md:border-b-3 max-md:bg-slate-100 border-gray-700">
+        <div className="relative flex flex-col w-full h-full max-md:max-h-75 order-3 md:order-1 md:w-1/4 lg:w-1/6 max-md:mt-4 max-md:mb-2 md:border-r-3 max-md:py-1 max-md:border-t-3 max-md:border-b-3 max-md:bg-slate-100 border-gray-700">
           <h1 className="md:hidden text-xl font-semibold mb-2 mx-2">
             Note Explorer:
           </h1>
@@ -280,6 +280,7 @@ function Workspace({
           note={currentNote}
           workspace={currentWorkspace}
           onDeleteNote={handleDeleteNote}
+          members={currentWorkspaceMembers}
           className="w-full order-4 md:w-1/4 lg:w-1/6 h-full md:pt-4 md:border-l-3 md:border-gray-700"
         />
 

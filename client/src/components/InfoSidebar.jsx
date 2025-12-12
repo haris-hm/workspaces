@@ -1,4 +1,12 @@
-function InfoSidebar({ note, workspace, onDeleteNote, className = "" }) {
+import MembersDisplay from "./MembersDisplay.jsx";
+
+function InfoSidebar({
+  note,
+  workspace,
+  onDeleteNote,
+  members,
+  className = "",
+}) {
   const dateOptions = {
     year: "numeric",
     month: "short",
@@ -49,16 +57,22 @@ function InfoSidebar({ note, workspace, onDeleteNote, className = "" }) {
         </button>
 
         <div className="flex flex-col items-center border-t-2 rounded-2xl pt-2 pb-2 border-gray-700">
-          <h1 className="text-xl md:text-2xl font-semibold select-none">
+          <h2 className="text-xl md:text-2xl font-semibold select-none text-center">
             Current Workspace:
-          </h1>
-          <h1 className="text-lg md:hidden font-semibold select-none truncate w-2/3 text-center mt-1">
+          </h2>
+          <h3 className="text-lg md:hidden font-semibold select-none truncate w-2/3 text-center mt-1">
             {workspace?.name}
-          </h1>
+          </h3>
+
           <div className="flex flex-row items-center text-4xl font-bold max-md:mt-2">
             <h2 className="select-none mr-1">#</h2>
             <h2 className="select-all">{workspace?.code}</h2>
           </div>
+
+          <h2 className="md:hidden mt-2 text-xl md:text-2xl font-semibold select-none text-center">
+            Members:
+          </h2>
+          <MembersDisplay members={members} className="my-2 md:hidden" />
         </div>
       </div>
     </div>

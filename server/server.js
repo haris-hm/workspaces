@@ -45,8 +45,18 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
+app.use("/api/", (req, res) => {
+  res
+    .status(200)
+    .send({ routes: ["/api/workspace", "/api/note", "/api/health"] });
+});
+
 app.use("/api/workspace", workspaceRouter);
 app.use("/api/note", notesRouter);
+
+app.use("/api/health", (req, res) => {
+  res.status(200).send("Server is healthy");
+});
 
 // Socket.IO
 io.on("connection", (socket) => {
