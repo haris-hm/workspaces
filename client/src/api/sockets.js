@@ -20,15 +20,16 @@ socket.on("reconnect_failed", () => {
   console.error("Socket reconnection failed after maximum attempts");
 });
 
-export const connectToWorkspace = (workspaceId) => {
+export const connectToWorkspace = (workspaceId, name) => {
   if (!socket.connected) {
     socket.connect();
   }
-  socket.emit("join-workspace", workspaceId);
+  socket.emit("join-workspace", { workspaceId: workspaceId, name: name });
 };
 
-export const disconnectSocket = () => {
+export const disconnectSocket = (name) => {
   if (socket.connected) {
+    socket.emit("leave-workspace", { name: name });
     socket.disconnect();
   }
 };

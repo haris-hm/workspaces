@@ -1,4 +1,4 @@
-function NameIcon({ name, size = 40 }) {
+function NameIcon({ name, size = 40, className = "" }) {
   const initials = name
     .split(" ")
     .map((part) => part[0].toUpperCase())
@@ -22,7 +22,7 @@ function NameIcon({ name, size = 40 }) {
 
   return (
     <div
-      className="rounded-full flex items-center justify-center text-xl text-gray-100 font-semibold border-2 border-gray-300 select-none"
+      className={`rounded-full flex items-center justify-center text-xl text-gray-100 font-semibold border-2 border-gray-300 select-none ${className}`}
       style={{ width: size, height: size, backgroundColor }}
     >
       <h2>{initials}</h2>

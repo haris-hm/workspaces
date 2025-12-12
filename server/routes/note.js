@@ -26,7 +26,6 @@ router.get("/:id", async (req, res) => {
 // POST new note
 router.post("/", async (req, res) => {
   try {
-    console.log("Received POST request with body:", req.body);
     const note = new Note({
       workspaceId: req.body.workspaceId,
     });

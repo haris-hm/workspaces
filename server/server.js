@@ -12,6 +12,8 @@ const workspaceRouter = require("./routes/workspace");
 const noteSockets = require("./sockets/noteSockets");
 const workspaceSockets = require("./sockets/workspaceSockets");
 
+const removeMember = require("./utils/updateMembers").removeMember;
+
 const allowedOrigins = process.env.CORS_ORIGINS.split(",") || [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
@@ -52,10 +54,6 @@ io.on("connection", (socket) => {
 
   noteSockets(io, socket);
   workspaceSockets(io, socket);
-
-  socket.on("disconnect", () => {
-    console.log(`User ${socket.id} disconnected`);
-  });
 });
 
 const PORT = process.env.PORT || 3001;

@@ -12,7 +12,7 @@ function Landing({ onSetName, onJoinWorkspace, onCreateWorkspace }) {
         Your new collaborative notetaking tool.
       </h2>
 
-      <div
+      <form
         className={`flex flex-col items-center mt-6 h-2/5 ${
           page === 0 ? "" : "hidden"
         }`}
@@ -28,7 +28,10 @@ function Landing({ onSetName, onJoinWorkspace, onCreateWorkspace }) {
         />
         <button
           className="bg-blue-800 px-6 py-2 rounded-2xl mt-6"
-          onClick={() => setPage(1)}
+          onClick={(e) => {
+            e.preventDefault();
+            setPage(1);
+          }}
         >
           <img
             src="/icons/right-arrow.svg"
@@ -36,7 +39,7 @@ function Landing({ onSetName, onJoinWorkspace, onCreateWorkspace }) {
             className="invert size-6"
           />
         </button>
-      </div>
+      </form>
 
       <WorkspaceForm
         onJoinWorkspace={onJoinWorkspace}

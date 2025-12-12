@@ -1,20 +1,17 @@
 function noteSockets(io, socket) {
   // Create a note
-  socket.on("note-created", (noteData) => {
-    const workspaceId = noteData.workspaceId;
-    io.to(workspaceId).emit("note-created", noteData.note);
+  socket.on("note-created", ({ workspaceId, note }) => {
+    io.to(workspaceId).emit("note-created", note);
   });
 
   // Update a note
-  socket.on("note-updated", (noteData) => {
-    const workspaceId = noteData.workspaceId;
-    io.to(workspaceId).emit("note-updated", noteData.note);
+  socket.on("note-updated", ({ workspaceId, note }) => {
+    io.to(workspaceId).emit("note-updated", note);
   });
 
   // Delete a note
-  socket.on("note-deleted", (noteData) => {
-    const workspaceId = noteData.workspaceId;
-    io.to(workspaceId).emit("note-deleted", noteData.noteId);
+  socket.on("note-deleted", ({ workspaceId, noteId }) => {
+    io.to(workspaceId).emit("note-deleted", noteId);
   });
 }
 
