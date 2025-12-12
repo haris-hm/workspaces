@@ -1,6 +1,6 @@
 import NoteItem from "./NoteItem";
 
-function NoteList({ notes, onSelectNote, blockOpen, className = "" }) {
+function NoteList({ notes, onSelectNote, blockOpen, loading, className = "" }) {
   return (
     <div className={`flex flex-col ${className}`}>
       {notes.map((note) => {
@@ -27,6 +27,20 @@ function NoteList({ notes, onSelectNote, blockOpen, className = "" }) {
           />
         );
       })}
+
+      {notes.length === 0 && !loading && (
+        <div className="p-4 text-center text-gray-500">
+          There doesn't seem to be anything here. Let's change that!
+        </div>
+      )}
+
+      {loading && (
+        <img
+          src="/icons/loading-dark.svg"
+          alt="Loading Notes..."
+          className="animate-spin h-8 w-8 mx-auto my-4"
+        />
+      )}
     </div>
   );
 }

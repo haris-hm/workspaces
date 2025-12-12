@@ -35,7 +35,7 @@ function WorkspaceCreatorModal({
           className="size-6"
         />
       </button>
-      <h1 className="text-3xl text-center font-semibold mb-6">
+      <h1 className="w-4/5 text-3xl text-center font-semibold mb-6">
         Join or create a workspace
       </h1>
       <WorkspaceForm

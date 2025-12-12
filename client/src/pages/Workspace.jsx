@@ -40,6 +40,7 @@ function Workspace({
   onJoinWorkspace,
   onCreateWorkspace,
 }) {
+  const [loadingNotes, setLoadingNotes] = useState(true);
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState(null);
   const [currentWorkspaceMembers, setCurrentWorkspaceMembers] = useState([
@@ -127,9 +128,14 @@ function Workspace({
   useEffect(() => {
     if (currentWorkspace) {
       // Fetch notes for the current workspace
-      getWorkspaceNotes(currentWorkspace._id).then((notes) => {
-        setNotes(notes);
-      });
+      getWorkspaceNotes(currentWorkspace._id)
+        .then((notes) => {
+          setLoadingNotes(false);
+          setNotes(notes);
+        })
+        .catch(() => {
+          setLoadingNotes(false);
+        });
 
       // Connect to the workspace's socket room
       connectToWorkspace(currentWorkspace._id, name);
@@ -251,6 +257,7 @@ function Workspace({
             notes={notes}
             onSelectNote={handleSelectNote}
             blockOpen={openWorkspaceCreator}
+            loading={loadingNotes}
             className="w-full flex-1 min-h-0 overflow-y-auto md:pt-4 md:pb-15"
           />
           <NewNoteButton

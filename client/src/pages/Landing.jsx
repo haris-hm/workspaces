@@ -16,7 +16,7 @@ function Landing({ onSetName, onJoinWorkspace, onCreateWorkspace }) {
 
   return (
     <div className="w-screen h-screen relative flex flex-col justify-center items-center bg-stone-100 text-center">
-      <h1 className="font-bold text-4xl">Welcome to Workspaces!</h1>
+      <h1 className="w-4/5 font-bold text-4xl">Welcome to Workspaces!</h1>
       <h2 className="font-semibold text-xl max-md:w-4/5 text-gray-700 mt-1.5">
         Your new collaborative notetaking tool.
       </h2>
