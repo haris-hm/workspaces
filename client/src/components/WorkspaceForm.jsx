@@ -2,6 +2,16 @@ import { useState } from "react";
 
 import FormContinueButton from "./FormContinueButton.jsx";
 
+/**
+ * A form component that allows users to either join an existing workspace
+ * using a workspace code or create a new workspace by providing a name.
+ * @param {Object} props - The component props.
+ * @param {Function} props.onJoinWorkspace - Callback function to handle joining a workspace.
+ * @param {Function} props.onCreateWorkspace - Callback function to handle creating a new workspace.
+ * @param {Function} [props.onSuccess] - Optional callback function to be called on successful join/create.
+ * @param {string} [props.className] - Optional CSS classes for styling.
+ * @returns
+ */
 function WorkspaceForm({
   onJoinWorkspace,
   onCreateWorkspace,

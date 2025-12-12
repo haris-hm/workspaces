@@ -3,6 +3,11 @@ const members = require("../utils/updateMembers");
 const addMember = members.addMember;
 const removeMember = members.removeMember;
 
+/**
+ * Handles workspace-related socket events such as joining, leaving, and disconnecting.
+ * @param {object} io - The Socket.IO server instance.
+ * @param {object} socket - The individual socket connection.
+ */
 function workspaceSockets(io, socket) {
   socket.on("join-workspace", async ({ workspaceId, name }) => {
     socket.join(workspaceId);

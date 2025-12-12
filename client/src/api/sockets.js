@@ -2,7 +2,10 @@ import { io } from "socket.io-client";
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3001";
 
-export const socket = io(SOCKET_URL, {
+/**
+ * Initialize Socket.IO client with reconnection settings
+ */
+const socket = io(SOCKET_URL, {
   autoConnect: false,
   reconnection: true,
   reconnectionAttempts: 5,
@@ -11,7 +14,7 @@ export const socket = io(SOCKET_URL, {
   timeout: 20000,
 });
 
-// Error logging for any connection issues
+// Error logging for any potential connection issues
 socket.on("connect_error", (error) => {
   console.error("Socket connection error:", error.message);
 });
@@ -20,18 +23,33 @@ socket.on("reconnect_failed", () => {
   console.error("Socket reconnection failed after maximum attempts");
 });
 
-export const connectToWorkspace = (workspaceId, name) => {
+/**
+ * Connect to a specific workspace via WebSocket
+ * @param {String} workspaceId - ID of the workspace to connect to
+ * @param {String} name - Name of the user connecting
+ */
+function connectToWorkspace(workspaceId, name) {
   if (!socket.connected) {
     socket.connect();
   }
   socket.emit("join-workspace", { workspaceId: workspaceId, name: name });
-};
+}
 
-export const disconnectSocket = (name) => {
+/**
+ * Disconnect from the WebSocket and leave the workspace
+ * @param {String} name - Name of the user disconnecting
+ */
+function disconnectSocket(name) {
   if (socket.connected) {
     socket.emit("leave-workspace", { name: name });
     socket.disconnect();
   }
-};
+}
 
-export const isSocketConnected = () => socket.connected;
+/**
+ * Check if the socket is currently connected
+ * @returns {Boolean} - Returns true if the socket is currently connected
+ */
+const isSocketConnected = () => socket.connected;
+
+export { socket, connectToWorkspace, disconnectSocket, isSocketConnected };

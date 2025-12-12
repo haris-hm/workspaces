@@ -1,3 +1,12 @@
+/**
+ * A button component for navigating through and submitting forms, with loading and disabled states.
+ * @param {Object} props - The props for the component.
+ * @param {Function} props.onClick - The function to call when the button is clicked.
+ * @param {Boolean} [props.loading] - Whether the button is in a loading state. Default is false.
+ * @param {Boolean} [props.disabled] - Whether the button is disabled. Default is false.
+ * @param {String} [props.className] - Optional CSS classes to apply to the button.
+ * @returns {JSX.Element} The rendered button component.
+ */
 function FormContinueButton({
   onClick,
   loading = false,

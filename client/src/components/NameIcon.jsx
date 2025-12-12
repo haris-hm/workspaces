@@ -1,3 +1,11 @@
+/**
+ * Generates a circular icon with initials from a given name.
+ * @param {Object} props - The component props.
+ * @param {string} props.name - The full name to extract initials from.
+ * @param {number} [props.size] - The diameter of the icon in pixels. Defaults to 40.
+ * @param {string} [props.className] - Optional CSS classes for styling.
+ * @returns {JSX.Element} The rendered NameIcon component.
+ */
 function NameIcon({ name, size = 40, className = "" }) {
   const initials = name
     .split(" ")

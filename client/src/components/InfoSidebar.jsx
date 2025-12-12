@@ -1,6 +1,16 @@
 import MembersDisplay from "./MembersDisplay.jsx";
 import DeleteNoteButton from "./DeleteNoteButton.jsx";
 
+/**
+ * A sidebar component that displays information about a note and its workspace.
+ * @param {Object} props - The component props.
+ * @param {Object} props.note - The currently selected note.
+ * @param {Object} props.workspace - The current workspace details.
+ * @param {Function} props.onDeleteNote - Callback function to handle note deletion.
+ * @param {Array} props.members - List of members in the workspace. For displaying in the mobile UI.
+ * @param {String} [props.className] - Optional CSS classes for styling.
+ * @returns {JSX.Element} The InfoSidebar component.
+ */
 function InfoSidebar({
   note,
   workspace,
@@ -16,6 +26,11 @@ function InfoSidebar({
     minute: "2-digit",
   };
 
+  /**
+   * Returns a formatted date string.
+   * @param {String|Date} date - The date to format.
+   * @returns {String} The formatted date string.
+   */
   function getDate(date) {
     return new Date(date).toLocaleString("en-US", dateOptions);
   }

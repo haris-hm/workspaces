@@ -35,6 +35,11 @@ function App() {
     return result;
   }
 
+  /**
+   * Handles requesting the creation of a new workspace with the given name.
+   * @param {String} name - The name of the new workspace.
+   * @returns {Object} Result of the workspace creation request.
+   */
   async function handleCreateWorkspace(name) {
     const result = await createWorkspace({ name: name })
       .then((workspace) => {

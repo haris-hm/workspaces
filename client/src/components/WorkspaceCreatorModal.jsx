@@ -2,6 +2,16 @@ import { useState } from "react";
 
 import WorkspaceForm from "./WorkspaceForm.jsx";
 
+/**
+ * A modal component for creating or joining a workspace.
+ * @param {Object} props - The component props.
+ * @param {boolean} props.display - Whether to open the modal.
+ * @param {Function} props.onJoinWorkspace - Callback for joining a workspace.
+ * @param {Function} props.onCreateWorkspace - Callback for creating a workspace.
+ * @param {boolean} props.showCloseButton - Whether to show the close button.
+ * @param {Function} props.onCloseModal - Callback for closing the modal.
+ * @returns {JSX.Element} The WorkspaceCreatorModal component.
+ */
 function WorkspaceCreatorModal({
   display,
   onJoinWorkspace,

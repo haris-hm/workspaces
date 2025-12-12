@@ -1,5 +1,15 @@
 import NoteItem from "./NoteItem";
 
+/**
+ * A list of notes.
+ * @param {Object} props - The component props.
+ * @param {Array} props.notes - The array of note objects to display.
+ * @param {Function} props.onSelectNote - Callback function when a note is selected.
+ * @param {boolean} props.blockOpen - Whether to block opening notes.
+ * @param {boolean} props.loading - Whether the notes are currently loading.
+ * @param {string} [props.className] - Optional CSS classes for styling.
+ * @returns {JSX.Element} The NoteList component.
+ */
 function NoteList({ notes, onSelectNote, blockOpen, loading, className = "" }) {
   return (
     <div className={`flex flex-col ${className}`}>

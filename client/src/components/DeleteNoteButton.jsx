@@ -1,5 +1,13 @@
 import { useState } from "react";
 
+/**
+ * A button component for deleting a note.
+ * @param {Object} props - The component props.
+ * @param {String} props.noteId - The ID of the note to be deleted.
+ * @param {Function} props.onDelete - The function to call when deleting the note.
+ * @param {String} [props.className=""] - Optional CSS classes for styling.
+ * @returns {JSX.Element} The DeleteNoteButton component.
+ */
 function DeleteNoteButton({ noteId, onDelete, className = "" }) {
   const [isDeleting, setIsDeleting] = useState(false);
 

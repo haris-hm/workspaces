@@ -166,11 +166,11 @@ function Workspace({
       };
     }
   }, [
-    currentWorkspace,
     updateNotes,
     createNote,
     deleteNote,
     updateMembers,
+    currentWorkspace,
     onFailedConnection,
     name,
   ]);

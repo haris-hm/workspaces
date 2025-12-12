@@ -1,5 +1,13 @@
 import { useState } from "react";
 
+/**
+ * A button component for creating a new note.
+ * @param {Object} props - The component props.
+ * @param {Function} props.onClick - The function to call when the button is clicked.
+ * @param {boolean} props.disabled - Whether the button is disabled.
+ * @param {string} [props.className] - Optional CSS classes to apply to the button.
+ * @returns {JSX.Element} The NewNoteButton component.
+ */
 function NewNoteButton({ onClick, disabled, className = "" }) {
   const [loading, setLoading] = useState(false);
 

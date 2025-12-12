@@ -1,3 +1,12 @@
+/**
+ * A note editor component that allows users to edit the title and content of a note.
+ * @param {Object} props - The component props.
+ * @param {Object} props.note - The note object containing title and content.
+ * @param {Function} props.onChangeNote - Callback function to handle changes to the note.
+ * @param {boolean} props.blockEdits - Flag to disable editing.
+ * @param {string} [props.className] - Optional CSS classes for styling.
+ * @returns {JSX.Element} The rendered NoteEditor component.
+ */
 function NoteEditor({ note, onChangeNote, blockEdits, className = "" }) {
   return (
     <div className={`flex flex-col ${className}`}>

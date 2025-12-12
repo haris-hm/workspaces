@@ -14,7 +14,6 @@ export default function useDebounce(callback, delay) {
   const timeoutRef = useRef(null);
   const callbackRef = useRef(callback);
 
-  // Update callback ref when callback changes
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
@@ -28,7 +27,11 @@ export default function useDebounce(callback, delay) {
     };
   }, []);
 
-  const debouncedFunction = (...args) => {
+  /**
+   * The debounced function that delays the execution of the callback.
+   * @param  {...any} args - Arguments to pass to the callback function.
+   */
+  function debouncedFunction(...args) {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -36,7 +39,7 @@ export default function useDebounce(callback, delay) {
     timeoutRef.current = setTimeout(() => {
       callbackRef.current(...args);
     }, delay);
-  };
+  }
 
   return debouncedFunction;
 }

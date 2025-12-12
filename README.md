@@ -310,7 +310,7 @@ I think I'm most proud of the real-time features, as it was really satisfying be
 
 ### **3. What would you do differently next time?**
 
-Given the time constraint, I would've probably reduced the scope a little bit. I ended up having to skip some of the stretch features, like tagging notes and being able to search/filter through notes by tag. Most of my time was spent on getting the real-time updates to work.
+Given the time constraint, I would've probably reduced the scope a little bit. I ended up having to skip some of the stretch features, like tagging notes and being able to search/filter through notes by tag. Most of my time was spent on getting the real-time updates to work. Also, I would probably make my own components to display on the page instead of using window alerts for things like delete confirmations or error messages. Because of time constraints, I went with the latter.
 
 ### **4. How did you incorporate feedback from the 12/5 check-in gallery?**
 
@@ -329,3 +329,4 @@ Some feedback I received was to add other features, like embedding images into n
 - Used GitHub Copilot for autocomplete suggestions whenever they were useful.
 - Asked Copilot about a React key error that I was getting, but ended up solving the problem myself as its suggestions did not work.
 - Used ChatGPT briefly for some help with sorting out how to organize my Socket endpoints in the server.
+- Used GitHub Copilot to start writing function documentation. Most generated documentation was edited after the fact.

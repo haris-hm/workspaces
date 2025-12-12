@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
       currentWorkspaceIds.map((workspace) => workspace.name)
     );
 
+    // Generate a unique workspace join code
     const workspaceCode = newWorkspaceCode(currentWorkspaceIdSet);
 
     const workspace = new Workspace({
