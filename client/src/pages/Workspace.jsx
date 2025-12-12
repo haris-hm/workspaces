@@ -6,7 +6,13 @@ import NoteEditor from "../components/NoteEditor";
 import InfoSidebar from "../components/InfoSidebar";
 import WorkspaceCreatorModal from "../components/WorkspaceCreatorModal";
 
-import { createNote, getNotes, changeNote, deleteNote } from "../api/note";
+import {
+  createWorkspaceNote,
+  getWorkspaceNotes,
+  updateWorkspaceNote,
+  deleteWorkspaceNote,
+} from "../api/note";
+
 import {
   connectToWorkspace,
   disconnectSocket,
@@ -16,7 +22,7 @@ import {
 
 import useDebounce from "../hooks/useDebounce";
 
-const DEBOUNCE_DELAY = 250; // milliseconds
+const DEBOUNCE_DELAY = 150; // milliseconds
 
 function Workspace({
   name,
@@ -48,25 +54,20 @@ function Workspace({
     }
   }, []);
 
-  const createNewNote = useCallback((newNote) => {
+  const createNote = useCallback((newNote) => {
     setNotes((prevNotes) => [newNote, ...prevNotes]);
     setCurrentNote(newNote);
   }, []);
 
-  const removeNote = useCallback((noteId) => {
+  const deleteNote = useCallback((noteId) => {
     if (currentNoteRef && currentNoteRef.current._id === noteId) {
       setCurrentNote(null);
     }
     setNotes((prevNotes) => prevNotes.filter((note) => note._id !== noteId));
   }, []);
 
-  // Debounced function for saving to backend
-  const debouncedSaveNote = useDebounce((updatedNote) => {
-    changeNote(updatedNote._id, {
-      title: updatedNote.title,
-      content: updatedNote.content,
-    });
-
+  // Debounce function for sending note updates to the server
+  const debouncedSocketNoteUpdate = useDebounce((updatedNote) => {
     // Emit socket event
     if (!isSocketConnected()) return;
     socket.emit("note-updated", {
@@ -75,11 +76,19 @@ function Workspace({
     });
   }, DEBOUNCE_DELAY);
 
+  // Delay saving note updates to the server even further
+  const debouncedSaveNote = useDebounce((updatedNote) => {
+    updateWorkspaceNote(updatedNote._id, {
+      title: updatedNote.title,
+      content: updatedNote.content,
+    });
+  }, DEBOUNCE_DELAY * 3);
+
   // Socket connection setup and teardown
   useEffect(() => {
     if (currentWorkspace) {
       // Fetch notes for the current workspace
-      getNotes(currentWorkspace._id).then((notes) => {
+      getWorkspaceNotes(currentWorkspace._id).then((notes) => {
         setNotes(notes);
       });
 
@@ -88,10 +97,10 @@ function Workspace({
 
       // Set up socket listeners for real-time updates
       socket.on("note-updated", updateNotes);
-      socket.on("note-created", createNewNote);
-      socket.on("note-deleted", removeNote);
+      socket.on("note-created", createNote);
+      socket.on("note-deleted", deleteNote);
 
-      // Clean up on unmount or workspace change
+      // Clean up on page close or workspace change
       return () => {
         disconnectSocket();
         socket.off("note-updated");
@@ -99,7 +108,7 @@ function Workspace({
         socket.off("note-deleted");
       };
     }
-  }, [currentWorkspace, updateNotes, createNewNote, removeNote]);
+  }, [currentWorkspace, updateNotes, createNote, deleteNote]);
 
   function handleSelectNote(noteId) {
     const note = notes.find((n) => n._id === noteId);
@@ -113,14 +122,17 @@ function Workspace({
     updateNotes(updatedNote);
 
     // Debounce the API call and socket emission
+    debouncedSocketNoteUpdate(updatedNote);
     debouncedSaveNote(updatedNote);
   }
 
   async function handleCreateNewNote() {
-    const newNote = await createNote({
+    const newNote = await createWorkspaceNote({
       workspaceId: currentWorkspace._id,
     });
-    createNewNote(newNote);
+
+    createNote(newNote);
+
     if (!isSocketConnected()) return;
     socket.emit("note-created", {
       workspaceId: currentWorkspace._id,
@@ -129,8 +141,10 @@ function Workspace({
   }
 
   function handleDeleteNote(noteId) {
-    removeNote(noteId);
     deleteNote(noteId);
+
+    deleteWorkspaceNote(noteId);
+
     if (!isSocketConnected()) return;
     socket.emit("note-deleted", {
       workspaceId: currentWorkspace._id,

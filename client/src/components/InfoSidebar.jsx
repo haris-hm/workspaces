@@ -7,32 +7,29 @@ function InfoSidebar({ note, workspace, onDeleteNote, className = "" }) {
     minute: "2-digit",
   };
 
-  const updatedAt = note
-    ? new Date(note.updatedAt).toLocaleString("en-US", dateOptions)
-    : null;
-  const createdAt = note
-    ? new Date(note?.createdAt).toLocaleString("en-US", dateOptions)
-    : null;
+  function getDate(date) {
+    return new Date(date).toLocaleString("en-US", dateOptions);
+  }
 
   return (
     <div
       className={`flex flex-col justify-between border-l-3 border-gray-700 ${className}`}
     >
       <div className="flex flex-col px-4 py-2">
-        {updatedAt && (
+        {note?.updatedAt && (
           <>
             <div className="flex flex-col md:flex-row justify-between text-md font-semibold md:gap-2">
               <h2 className="select-none">Updated:</h2>
-              <h2>{updatedAt}</h2>
+              <h2>{getDate(note.updatedAt)}</h2>
             </div>
           </>
         )}
 
-        {createdAt && (
+        {note?.createdAt && (
           <>
             <div className="flex flex-col md:flex-row mt-3 justify-between text-md font-semibold md:gap-2">
               <h2 className="select-none">Created:</h2>
-              <h2>{createdAt}</h2>
+              <h2>{getDate(note.createdAt)}</h2>
             </div>
           </>
         )}
