@@ -43,20 +43,20 @@ function InfoSidebar({ note, workspace, onDeleteNote, className = "" }) {
           }`}
         >
           <img src="icons/trash.svg" className="size-5 max-md:size-10" />
-          <p className="max-md:hidden text-xl text-center text-gray-100 font-semibold">
+          <p className="text-xl text-center text-gray-100 font-semibold">
             Delete Note
           </p>
         </button>
 
         <div className="flex flex-col items-center border-t-2 rounded-2xl pt-2 pb-2 border-gray-700">
-          <h1 className="text-lg md:text-2xl font-semibold select-none">
+          <h1 className="text-xl md:text-2xl font-semibold select-none">
             Current Workspace:
           </h1>
-          <h1 className="text-md md:hidden font-semibold select-none">
+          <h1 className="text-lg md:hidden font-semibold select-none truncate w-2/3 text-center mt-1">
             {workspace?.name}
           </h1>
-          <div className="flex flex-row text-4xl font-bold ">
-            <h2 className="select-none">#</h2>
+          <div className="flex flex-row items-center text-4xl font-bold max-md:mt-2">
+            <h2 className="select-none mr-1">#</h2>
             <h2 className="select-all">{workspace?.code}</h2>
           </div>
         </div>

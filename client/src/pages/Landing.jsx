@@ -2,13 +2,22 @@ import { useState } from "react";
 
 import WorkspaceForm from "../components/WorkspaceForm";
 
+/**
+ * Landing page component.
+ *
+ * @param {Object} props - Component props.
+ * @param {Function} props.onSetName - Callback to set the user's name.
+ * @param {Function} props.onJoinWorkspace - Callback to join an existing workspace.
+ * @param {Function} props.onCreateWorkspace - Callback when creating a workspace.
+ * @returns {JSX.Element} The Landing page component.
+ */
 function Landing({ onSetName, onJoinWorkspace, onCreateWorkspace }) {
   const [page, setPage] = useState(0);
 
   return (
     <div className="w-screen h-screen relative flex flex-col justify-center items-center bg-stone-100 text-center">
       <h1 className="font-bold text-4xl">Welcome to Workspaces!</h1>
-      <h2 className="font-semibold text-xl text-gray-700 mt-1.5">
+      <h2 className="font-semibold text-xl max-md:w-4/5 text-gray-700 mt-1.5">
         Your new collaborative notetaking tool.
       </h2>
 

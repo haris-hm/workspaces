@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import FormContinueButton from "./FormContinueButton.jsx";
+
 function WorkspaceForm({
   onJoinWorkspace,
   onCreateWorkspace,
@@ -8,6 +10,9 @@ function WorkspaceForm({
 }) {
   const [workspaceCode, setWorkspaceCode] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
+
+  const [loadingCodeInput, setLoadingCodeInput] = useState(false);
+  const [loadingNameInput, setLoadingNameInput] = useState(false);
 
   return (
     <div className={`${className}`}>
@@ -18,35 +23,43 @@ function WorkspaceForm({
         Already have a workspace code?
       </label>
       <form className="flex flex-row w-full gap-1 mb-6">
-        <input
-          name="workspaceCode"
-          type="text"
-          onChange={(e) => {
-            e.target.value = e.target.value
-              .toUpperCase()
-              .replace(/[^A-Za-z0-9]/g, "");
-            setWorkspaceCode(e.target.value);
-          }}
-          className="text-xl font-semibold rounded-lg border-gray-700 border-2 w-full"
-          maxLength={6}
-        />
-        <button
-          className="flex flex-row justify-center items-center py-2 bg-blue-800 rounded-2xl h-full w-1/5 hover:brightness-110 active:brightness-90 cursor-pointer"
+        <div className="flex flex-row rounded-lg border-gray-700 border-2 w-full">
+          <h2 className="mx-2 text-3xl font-bold">#</h2>
+          <input
+            name="workspaceCode"
+            type="text"
+            placeholder="ABC123"
+            onChange={(e) => {
+              e.target.value = e.target.value
+                .toUpperCase()
+                .replace(/[^A-Za-z0-9]/g, "");
+              setWorkspaceCode(e.target.value);
+            }}
+            className="text-2xl font-semibold w-full outline-none rounded-r-lg"
+            maxLength={6}
+          />
+        </div>
+
+        <FormContinueButton
+          loading={loadingCodeInput}
+          disabled={loadingNameInput}
           onClick={async (e) => {
             e.preventDefault();
+
+            setLoadingCodeInput(true);
             const result = await onJoinWorkspace(workspaceCode);
+            setLoadingCodeInput(false);
+
             if (!result?.error) {
               onSuccess(result);
               return;
             }
+
+            alert(
+              "Failed to join workspace. Please check the code and try again."
+            );
           }}
-        >
-          <img
-            src="/icons/right-arrow.svg"
-            alt="Next"
-            className="invert size-6"
-          />
-        </button>
+        />
       </form>
 
       <label
@@ -63,26 +76,28 @@ function WorkspaceForm({
             e.target.value = e.target.value.replace(/[^A-Za-z0-9_\-\s'"]/g, "");
             setWorkspaceName(e.target.value);
           }}
-          className="text-xl font-semibold rounded-lg border-gray-700 border-2 w-full"
+          className="text-2xl font-semibold outline-none rounded-lg border-gray-700 border-2 w-full"
           maxLength={25}
         />
-        <button
-          className="flex flex-row justify-center items-center py-2 bg-blue-800 rounded-2xl h-full w-1/5 hover:brightness-110 active:brightness-90 cursor-pointer"
+
+        <FormContinueButton
+          loading={loadingNameInput}
+          disabled={loadingCodeInput}
           onClick={async (e) => {
             e.preventDefault();
+
+            setLoadingNameInput(true);
             const result = await onCreateWorkspace(workspaceName);
+            setLoadingNameInput(false);
+
             if (!result?.error) {
               onSuccess(result);
               return;
             }
+
+            alert("Failed to create workspace. Please try again.");
           }}
-        >
-          <img
-            src="/icons/right-arrow.svg"
-            alt="Next"
-            className="invert size-6"
-          />
-        </button>
+        />
       </form>
     </div>
   );

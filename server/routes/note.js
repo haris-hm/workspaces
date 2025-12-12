@@ -6,6 +6,13 @@ const Note = require("../models/Note");
 router.get("/", async (req, res) => {
   try {
     const workspaceId = req.query.workspaceId;
+
+    if (!workspaceId) {
+      return res
+        .status(400)
+        .json({ message: "workspaceId query parameter is required" });
+    }
+
     const notes = await Note.find({ workspaceId });
     return res.json(notes);
   } catch (err) {
@@ -13,10 +20,15 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET all notes for workspace
+// GET a note by ID
 router.get("/:id", async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
+
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
     return res.json(note);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -29,6 +41,14 @@ router.post("/", async (req, res) => {
     const note = new Note({
       workspaceId: req.body.workspaceId,
     });
+
+    if (req.body.title) {
+      note.title = req.body.title;
+    }
+
+    if (req.body.content) {
+      note.content = req.body.content;
+    }
 
     const savedNote = await note.save();
     res.status(201).json(savedNote);
@@ -44,6 +64,11 @@ router.put("/:id", async (req, res) => {
       title: req.body.title,
       content: req.body.content,
     });
+
+    if (!updatedNote) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
     res.status(201).json(updatedNote);
   } catch (err) {
     res.status(400).json({ message: err.message });

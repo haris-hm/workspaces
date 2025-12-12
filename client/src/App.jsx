@@ -5,6 +5,10 @@ import Landing from "./pages/Landing";
 
 import { createWorkspace, getWorkspace } from "./api/workspace";
 
+/**
+ * Main application component.
+ * @returns {JSX.Element} The rendered App component.
+ */
 function App() {
   const [currentWorkspace, setCurrentWorkspace] = useLocalStorage(
     "workspace",
@@ -12,13 +16,20 @@ function App() {
   );
   const [name, setName] = useLocalStorage("name", "");
 
+  /**
+   * Tries to join a workspace using the provided code.
+   * @param {String} code
+   * @returns
+   */
   async function handleJoinWorkspace(code) {
-    const result = await getWorkspace(code)
+    let result;
+
+    await getWorkspace(code)
       .then((workspace) => {
         setCurrentWorkspace(workspace);
       })
       .catch((error) => {
-        return { error: error.message };
+        result = { error: error.message };
       });
 
     return result;

@@ -58,7 +58,6 @@ function Workspace({
    * @param {Object} updatedNote - The updated note object.
    */
   const updateNotes = useCallback((updatedNote) => {
-    console.log("Updating note:", updatedNote);
     setNotes((prevNotes) =>
       prevNotes.map((note) =>
         note._id === updatedNote._id ? updatedNote : note
@@ -97,7 +96,6 @@ function Workspace({
    * @param {Array} members - The updated list of workspace members.
    */
   const updateMembers = useCallback((members) => {
-    console.log("Updating members:", members);
     setCurrentWorkspaceMembers(members);
   }, []);
 
@@ -245,12 +243,15 @@ function Workspace({
           openWorkspaceCreator ? "blur-[3px] select-none" : ""
         }`}
       >
-        <div className="relative flex flex-col w-full max-md:max-h-75 order-3 md:order-1 md:w-1/4 lg:1/6 md:border-r-3 md:border-gray-700">
+        <div className="relative flex flex-col w-full max-md:max-h-75 order-3 md:order-1 md:w-1/4 lg:w-1/6 max-md:mt-4 max-md:mb-2 md:border-r-3 max-md:py-1 max-md:border-t-3 max-md:border-b-3 max-md:bg-slate-100 border-gray-700">
+          <h1 className="md:hidden text-xl font-semibold mb-2 mx-2">
+            Note Explorer:
+          </h1>
           <NoteList
             notes={notes}
             onSelectNote={handleSelectNote}
             blockOpen={openWorkspaceCreator}
-            className="w-full flex-1 min-h-0 overflow-y-auto md:pt-4 pb-15"
+            className="w-full flex-1 min-h-0 overflow-y-auto md:pt-4 md:pb-15"
           />
           <NewNoteButton
             onClick={handleCreateNewNote}
@@ -260,7 +261,7 @@ function Workspace({
         </div>
 
         <NoteEditor
-          className={`w-full order-1 max-md:min-h-125 md:order-2 md:w-1/2 lg:1/6 pt-2 ${
+          className={`w-full order-1 max-md:min-h-125 md:order-2 md:w-1/2 lg:w-2/3 pt-2 ${
             currentNote ? "" : "hidden-editor"
           }`}
           note={currentNote}
@@ -272,7 +273,7 @@ function Workspace({
           note={currentNote}
           workspace={currentWorkspace}
           onDeleteNote={handleDeleteNote}
-          className="w-full order-4 md:w-1/4 lg:1/6 h-full md:pt-4 md:border-l-3 md:border-gray-700"
+          className="w-full order-4 md:w-1/4 lg:w-1/6 h-full md:pt-4 md:border-l-3 md:border-gray-700"
         />
 
         <NewNoteButton

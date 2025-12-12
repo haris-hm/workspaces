@@ -13,7 +13,7 @@ function WorkspaceCreatorModal({
 
   return (
     <div
-      className={`absolute top-1/2 left-1/2 w-7/8 md:w-3/5 h-1/2 z-100 rounded-2xl bg-slate-300 transform -translate-x-1/2 -translate-y-1/2 shadow-lg flex flex-col items-center justify-center ${
+      className={`absolute top-1/2 left-1/2 w-7/8 h-3/5 md:w-3/5 md:h-1/2 z-100 rounded-2xl bg-slate-300 transform -translate-x-1/2 -translate-y-1/2 shadow-lg flex flex-col items-center justify-center ${
         display ? "" : "hidden"
       }`}
     >

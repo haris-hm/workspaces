@@ -1,5 +1,15 @@
 import { useEffect, useRef } from "react";
 
+/**
+ * A custom hook that returns a debounced version of the provided callback function.
+ * Allows delaying the execution of the callback until after a specified delay has passed
+ * since the last time the debounced function was invoked. Useful for lowering number
+ * of API calls and socket emissions.
+ *
+ * @param {Function} callback - The function to debounce.
+ * @param {Number} delay - The delay in milliseconds.
+ * @returns {Function} - The debounced function.
+ */
 export default function useDebounce(callback, delay) {
   const timeoutRef = useRef(null);
   const callbackRef = useRef(callback);

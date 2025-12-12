@@ -1,32 +1,28 @@
-import NameIcon from "./NameIcon";
+import MembersDisplay from "./MembersDisplay";
 
 function NavBar({ workspace, members, onOpenModal }) {
   return (
     <div className="w-full py-2 px-4 l flex flex-row justify-between items-center bg-slate-200 shadow-md rounded-b-xl shadow-gray-500">
       <h1 className="text-2xl font-bold select-none">Workspaces</h1>
-      <h1 className="text-2xl font-bold select-none">{workspace?.name}</h1>
+      <h1 className="text-2xl font-bold select-none max-md:hidden">
+        {workspace?.name}
+      </h1>
       <div className="flex flex-row items-center gap-2">
-        <div className="flex flex-row gap-1">
-          {members && members.length > 0 && (
-            <>
-              {members.slice(0, 3).map((member, idx) => (
-                <NameIcon key={idx} name={member.name} size={40} />
-              ))}
-              {members.length > 3 && (
-                <NameIcon name={`+ ${members.length - 3}`} size={40} />
-              )}
-            </>
-          )}
-        </div>
+        <MembersDisplay members={members} className="max-md:hidden" />
         <button
           className="flex flex-row items-center justify-center py-2 px-4 gap-2 bg-amber-600 rounded-lg hover:brightness-110 active:brightness-90 cursor-pointer"
           onClick={() => {
             onOpenModal();
           }}
         >
-          <p className="text-xl text-center text-gray-100 font-semibold">
+          <p className="max-md:hidden text-xl text-center text-gray-100 font-semibold">
             New Workspace
           </p>
+          <img
+            src="/icons/folder-plus.svg"
+            alt="New Workspace"
+            className="md:hidden size-6"
+          />
         </button>
       </div>
     </div>

@@ -7,6 +7,11 @@ const Workspace = require("../models/Workspace");
 router.get("/:code", async (req, res) => {
   try {
     const workspace = await Workspace.findOne({ code: req.params.code });
+
+    if (!workspace) {
+      return res.status(404).json({ message: "Workspace not found" });
+    }
+
     res.json(workspace);
   } catch (err) {
     res.status(500).json({ message: err.message });

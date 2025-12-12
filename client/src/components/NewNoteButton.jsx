@@ -9,8 +9,8 @@ function NewNoteButton({ onClick, disabled, className = "" }) {
       } ${className}`}
       disabled={disabled}
     >
-      <img src="icons/plus-circle.svg" className="size-5 max-md:size-10" />
-      <p className="max-md:hidden text-xl text-center text-gray-100 font-semibold">
+      <img src="icons/paper-plus.svg" className="size-5 max-md:size-10" />
+      <p className="text-xl text-center text-gray-100 font-semibold">
         New Note
       </p>
     </button>
