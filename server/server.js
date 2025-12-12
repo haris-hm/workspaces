@@ -45,7 +45,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
-app.use("/api/", (req, res) => {
+app.use("/api/routes", (req, res) => {
   res
     .status(200)
     .send({ routes: ["/api/workspace", "/api/note", "/api/health"] });
