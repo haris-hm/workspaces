@@ -7,15 +7,15 @@ function NavBar({ workspace, members, onOpenModal }) {
       <h1 className="text-2xl font-bold select-none">{workspace?.name}</h1>
       <div className="flex flex-row items-center gap-2">
         <div className="flex flex-row gap-1">
-          {members &&
-            members.length > 0 &&
-            members
-              .slice(0, 3)
-              .map((member) => (
-                <NameIcon key={member.socketId} name={member.name} size={40} />
+          {members && members.length > 0 && (
+            <>
+              {members.slice(0, 3).map((member, idx) => (
+                <NameIcon key={idx} name={member.name} size={40} />
               ))}
-          {members && members.length > 3 && (
-            <NameIcon name={`+ ${members.length - 3}`} size={40} />
+              {members.length > 3 && (
+                <NameIcon name={`+ ${members.length - 3}`} size={40} />
+              )}
+            </>
           )}
         </div>
         <button

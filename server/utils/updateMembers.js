@@ -2,6 +2,12 @@ const Workspace = require("../models/Workspace");
 
 async function addMember(workspaceId, socketId, memberName) {
   try {
+    await Workspace.findByIdAndUpdate(workspaceId, {
+      $pull: {
+        members: { name: memberName },
+      },
+    });
+
     const updatedWorkspace = await Workspace.findByIdAndUpdate(
       workspaceId,
       {
@@ -10,9 +16,9 @@ async function addMember(workspaceId, socketId, memberName) {
             socketId: socketId,
             name: memberName,
           },
-        }, // Correct syntax
+        },
       },
-      { new: true } // Return updated document
+      { new: true }
     );
 
     if (!updatedWorkspace) {
@@ -27,31 +33,17 @@ async function addMember(workspaceId, socketId, memberName) {
   }
 }
 
-async function removeMember(socketId, workspaceId = "") {
+async function removeMember(workspaceId, socketId) {
   try {
-    let updatedWorkspace;
-
-    if (workspaceId) {
-      updatedWorkspace = await Workspace.findByIdAndUpdate(
-        workspaceId,
-        {
-          $pull: {
-            members: { socketId: socketId },
-          },
+    const updatedWorkspace = await Workspace.findByIdAndUpdate(
+      workspaceId,
+      {
+        $pull: {
+          members: { socketId: socketId },
         },
-        { new: true }
-      );
-    } else {
-      updatedWorkspace = await Workspace.findOneAndUpdate(
-        { "members.socketId": socketId },
-        {
-          $pull: {
-            members: { socketId: socketId },
-          },
-        },
-        { new: true }
-      );
-    }
+      },
+      { new: true }
+    );
 
     if (!updatedWorkspace) {
       console.error("Workspace not found:", workspaceId);
