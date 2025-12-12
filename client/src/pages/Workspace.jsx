@@ -14,6 +14,8 @@ import {
   deleteWorkspaceNote,
 } from "../api/note";
 
+import { getWorkspace } from "../api/workspace";
+
 import {
   connectToWorkspace,
   disconnectSocket,
@@ -32,6 +34,7 @@ const DEBOUNCE_DELAY = 100; // milliseconds
  * @param {Object} props.currentWorkspace - The currently selected workspace.
  * @param {Function} props.onJoinWorkspace - Callback for joining a workspace.
  * @param {Function} props.onCreateWorkspace - Callback for creating a new workspace.
+ * @param {Function} props.onFailedConnection - Callback for handling a failed workspace connection.
  * @returns {JSX.Element} The rendered Workspace component.
  */
 function Workspace({
@@ -39,6 +42,7 @@ function Workspace({
   currentWorkspace,
   onJoinWorkspace,
   onCreateWorkspace,
+  onFailedConnection,
 }) {
   const [loadingNotes, setLoadingNotes] = useState(true);
   const [notes, setNotes] = useState([]);
@@ -76,9 +80,9 @@ function Workspace({
    * Creates a new note in the local state.
    * @param {Object} newNote - The new note object.
    */
-  const createNote = useCallback((newNote) => {
+  const createNote = useCallback((newNote, switchNote = true) => {
     setNotes((prevNotes) => [newNote, ...prevNotes]);
-    setCurrentNote(newNote);
+    if (switchNote) setCurrentNote(newNote);
   }, []);
 
   /**
@@ -86,7 +90,7 @@ function Workspace({
    * @param {string} noteId - The ID of the note to delete.
    */
   const deleteNote = useCallback((noteId) => {
-    if (currentNoteRef && currentNoteRef.current._id === noteId) {
+    if (currentNoteRef?.current && currentNoteRef.current._id === noteId) {
       setCurrentNote(null);
     }
     setNotes((prevNotes) => prevNotes.filter((note) => note._id !== noteId));
@@ -127,6 +131,11 @@ function Workspace({
   // Socket connection setup and teardown
   useEffect(() => {
     if (currentWorkspace) {
+      // Check if workspace is still active
+      getWorkspace(currentWorkspace.code).catch(() => {
+        onFailedConnection();
+      });
+
       // Fetch notes for the current workspace
       getWorkspaceNotes(currentWorkspace._id)
         .then((notes) => {
@@ -142,7 +151,7 @@ function Workspace({
 
       // Set up socket listeners for real-time updates
       socket.on("note-updated", updateNotes);
-      socket.on("note-created", createNote);
+      socket.on("note-created", (note) => createNote(note, false));
       socket.on("note-deleted", deleteNote);
       socket.on("update-members", updateMembers);
 
@@ -162,6 +171,7 @@ function Workspace({
     createNote,
     deleteNote,
     updateMembers,
+    onFailedConnection,
     name,
   ]);
 

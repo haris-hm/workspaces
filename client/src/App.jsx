@@ -55,6 +55,10 @@ function App() {
           currentWorkspace={currentWorkspace}
           onJoinWorkspace={handleJoinWorkspace}
           onCreateWorkspace={handleCreateWorkspace}
+          onFailedConnection={() => {
+            setCurrentWorkspace(null);
+            alert("Failed to connect to workspace. It may have been deleted.");
+          }}
         />
       ) : (
         <Landing

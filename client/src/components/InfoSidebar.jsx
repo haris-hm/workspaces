@@ -1,4 +1,5 @@
 import MembersDisplay from "./MembersDisplay.jsx";
+import DeleteNoteButton from "./DeleteNoteButton.jsx";
 
 function InfoSidebar({
   note,
@@ -42,19 +43,7 @@ function InfoSidebar({
       </div>
 
       <div className="flex flex-col">
-        <button
-          onClick={() => {
-            if (note) onDeleteNote(note._id);
-          }}
-          className={`flex flex-row align-middle items-center justify-center mx-2 mb-2 py-2 px-4 gap-2 bg-red-700 rounded-lg drop-shadow-md drop-shadow-gray-500shrink-0 hover:brightness-110 active:brightness-90 cursor-pointer ${
-            note ? "" : "hidden"
-          }`}
-        >
-          <img src="icons/trash.svg" className="size-5 max-md:size-10" />
-          <p className="text-xl text-center text-gray-100 font-semibold">
-            Delete Note
-          </p>
-        </button>
+        {note && <DeleteNoteButton onDelete={onDeleteNote} noteId={note._id} />}
 
         <div className="flex flex-col items-center border-t-2 rounded-2xl pt-2 pb-2 border-gray-700">
           <h2 className="text-xl md:text-2xl font-semibold select-none text-center">
@@ -72,7 +61,11 @@ function InfoSidebar({
           <h2 className="md:hidden mt-2 text-xl md:text-2xl font-semibold select-none text-center">
             Members:
           </h2>
-          <MembersDisplay members={members} className="my-2 md:hidden" />
+          <MembersDisplay
+            members={members}
+            limit={5}
+            className="my-2 md:hidden"
+          />
         </div>
       </div>
     </div>

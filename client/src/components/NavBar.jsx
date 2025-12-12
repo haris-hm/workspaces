@@ -8,7 +8,7 @@ function NavBar({ workspace, members, onOpenModal }) {
         {workspace?.name}
       </h1>
       <div className="flex flex-row items-center gap-2">
-        <MembersDisplay members={members} className="max-md:hidden" />
+        <MembersDisplay members={members} limit={3} className="max-md:hidden" />
         <button
           className="flex flex-row items-center justify-center py-2 px-4 gap-2 bg-amber-600 rounded-lg hover:brightness-110 active:brightness-90 cursor-pointer"
           onClick={() => {
