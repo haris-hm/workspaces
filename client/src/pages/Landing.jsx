@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import WorkspaceForm from "../components/WorkspaceForm";
+import FormContinueButton from "../components/FormContinueButton";
 
 /**
  * Landing page component.
@@ -13,6 +14,7 @@ import WorkspaceForm from "../components/WorkspaceForm";
  */
 function Landing({ onSetName, onJoinWorkspace, onCreateWorkspace }) {
   const [page, setPage] = useState(0);
+  const [name, setName] = useState("");
 
   return (
     <div className="w-screen h-screen relative flex flex-col justify-center items-center bg-stone-100 text-center">
@@ -32,22 +34,21 @@ function Landing({ onSetName, onJoinWorkspace, onCreateWorkspace }) {
         <input
           name="name"
           type="text"
-          onChange={(e) => onSetName(e.target.value)}
+          onChange={(e) => {
+            const inputName = e.target.value.trim();
+            setName(inputName);
+            onSetName(inputName);
+          }}
           className="text-xl border-gray-700 border-2 rounded-lg mt-2"
         />
-        <button
-          className="bg-blue-800 px-6 py-2 rounded-2xl mt-6"
+        <FormContinueButton
           onClick={(e) => {
             e.preventDefault();
             setPage(1);
           }}
-        >
-          <img
-            src="/icons/right-arrow.svg"
-            alt="Next"
-            className="invert size-6"
-          />
-        </button>
+          className="mt-6 px-6 py-2"
+          disabled={name === ""}
+        />
       </form>
 
       <WorkspaceForm

@@ -2,7 +2,6 @@ const API_URL = `${import.meta.env.VITE_API_URL}/workspace`;
 
 export const getWorkspace = async (joinCode) => {
   const response = await fetch(`${API_URL}/${joinCode}`);
-  console.log("response", response);
   if (!response.ok) {
     throw new Error("Failed to fetch workspace");
   }

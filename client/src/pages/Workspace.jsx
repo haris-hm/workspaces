@@ -23,7 +23,7 @@ import {
 
 import useDebounce from "../hooks/useDebounce";
 
-const DEBOUNCE_DELAY = 150; // milliseconds
+const DEBOUNCE_DELAY = 100; // milliseconds
 
 /**
  * A workspace page component that manages notes within a workspace.

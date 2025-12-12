@@ -42,7 +42,7 @@ function WorkspaceForm({
 
         <FormContinueButton
           loading={loadingCodeInput}
-          disabled={loadingNameInput}
+          disabled={loadingNameInput || workspaceCode.length !== 6}
           onClick={async (e) => {
             e.preventDefault();
 
@@ -59,6 +59,7 @@ function WorkspaceForm({
               "Failed to join workspace. Please check the code and try again."
             );
           }}
+          className="h-full w-2/5 md:w-1/5"
         />
       </form>
 
@@ -85,7 +86,7 @@ function WorkspaceForm({
 
         <FormContinueButton
           loading={loadingNameInput}
-          disabled={loadingCodeInput}
+          disabled={loadingCodeInput || workspaceName.length === 0}
           onClick={async (e) => {
             e.preventDefault();
 
@@ -100,6 +101,7 @@ function WorkspaceForm({
 
             alert("Failed to create workspace. Please try again.");
           }}
+          className="h-full w-2/5 md:w-1/5"
         />
       </form>
     </div>

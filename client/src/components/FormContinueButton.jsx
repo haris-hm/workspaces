@@ -1,18 +1,18 @@
 function FormContinueButton({
   onClick,
-  loading,
+  loading = false,
   disabled = false,
   className = "",
 }) {
   return (
     <button
-      className={`flex flex-row justify-center items-center py-2 bg-blue-800 rounded-xl md:rounded-2xl h-full w-2/5 md:w-1/5 hover:brightness-110 active:brightness-90 cursor-pointer ${className}`}
+      className={`flex flex-row justify-center items-center py-2 bg-blue-800 disabled:bg-indigo-900 rounded-xl md:rounded-2xl enabled:hover:brightness-110 enabled:active:brightness-90 enabled:cursor-pointer ${className}`}
+      disabled={loading || disabled}
       onClick={onClick}
     >
       <img
         src={loading ? "/icons/loading-dark.svg" : "/icons/right-arrow.svg"}
         alt="Join"
-        disabled={loading || disabled}
         className={`invert size-6 ${loading ? "animate-spin" : ""}`}
       />
     </button>
