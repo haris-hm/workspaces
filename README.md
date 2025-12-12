@@ -136,53 +136,157 @@ npm run dev
 
 Document the **main 3–5 routes**:
 
-### **GET /api/resource**
+### HTTP Server
 
-Returns all resources.
+#### **GET /api/workspace/:code**
 
-### **POST /api/resource**
+Returns a [Workspace](/server/models/Workspace.js) object that is identified by the 6-digit code provided as a URL parameter.
 
-Creates a new resource.
+#### **POST /api/workspace**
+
+Creates a new workspace. Returns the resulting [Workspace](/server/models/Workspace.js) object.
+
 Body example:
 
 ```json
 {
-  "name": "Example",
-  "description": "Text here"
+  "name": "Example Workspace"
 }
 ```
 
-### **PATCH /api/resource/:id**
+#### **GET /api/note?workspaceId=<ID>**
 
-Updates a resource.
+Gets all the notes attached to the given workspace ID. Returns an array of [Note](/server/models/Note.js) objects.
 
-### **DELETE /api/resource/:id**
+#### **GET /api/note/:id**
 
-Deletes a resource.
+Returns the [Note](/server/models/Note.js) object identified by the `:id` note ID.
 
-> Add additional routes if needed (auth, file uploads, WebSockets, etc.).
+#### **POST /api/note/**
+
+Creates a new note in the given workspace. Returns the resulting [Note](/server/models/Note.js) object.
+
+Body example:
+
+```json
+{
+  "workspaceId": "693c76418d8c08cd377294cb"
+}
+```
+
+Optional body parameters:
+
+```json
+{
+  "title": "New Example Note",
+  "content": "Example note body."
+}
+```
+
+#### **PUT /api/note/:id**
+
+Updates the note with a new title and content. Returns the resulting [Note](/server/models/Note.js) object.
+
+Body example:
+
+```json
+{
+  "title": "Example Note",
+  "content": "Example note body. Wow! More content in the body!"
+}
+```
+
+#### **DELETE /api/note/:id**
+
+Deletes a note given its ID. Returns nothing.
+
+### Socket.IO Server
+
+#### **join-workspace**
+
+Parameters:
+
+- `workspaceId`
+- The name of the person joining the room
+
+Emits:
+
+- An `update-members` event to all the clients connected to the `workspaceId` room.
+- Payload contains the new members list.
+
+#### **leave-workspace**
+
+Emits:
+
+- An `update-members` event to all the clients connected to the `workspaceId` room.
+- Payload contains the new members list.
+
+#### **disconnect**
+
+Occurs when a client closes the website.
+
+Emits:
+
+- An `update-members` event to all the clients connected to the `workspaceId` room.
+- Payload contains the new members list.
+
+#### **note-created**
+
+Parameters:
+
+- `workspaceId`
+- The note object created
+
+Emits:
+
+- A `note-created` event to all the clients connected to the `workspaceId` room.
+- Payload contains the newly created note object.
+
+#### **note-updated**
+
+Parameters:
+
+- `workspaceId`
+- The note object that was updated
+
+Emits:
+
+- A `note-updated` event to all the clients connected to the `workspaceId` room.
+- Payload contains the updated note object.
+
+#### **note-deleted**
+
+Parameters:
+
+- `workspaceId`
+- The note object that was deleted with a modified `updatedAt` date.
+
+Emits:
+
+- A `note-deleted` event to all the clients connected to the `workspaceId` room.
+- Payload contains the deleted note's ID.
 
 ---
 
 ## Deployment Notes
 
-Document where/how you deployed:
-
 ### **Frontend**
 
-- Vercel / Netlify
-- Explain build command if different (`npm run build`)
+- Deployed using [Netlify](https://www.netlify.com/)
+- Built using `npm run build`, then served with `npm start`
+- Environment variables used to define backend URLs
 
 ### **Backend**
 
-- Render / Railway
-- Note environment variable setup
+- Deployed using [Render](https://render.com/)
+- Built using `npm run build`, then served with `npm start`
+- Environment variables configured to define the frontend URL for CORS and the MongoDB connection string
 
 ---
 
 ## Video Walkthrough
 
-**Link to Loom/YouTube:**
+**Link to YouTube:**
 [https://your-video-link.com](https://your-video-link.com)
 
 Include quick timestamps if you want extra professionalism:
@@ -196,26 +300,21 @@ Include quick timestamps if you want extra professionalism:
 
 # Reflection
 
-_(This section is required for grading.)_
-
 ### **1. What was the hardest part of this project?**
 
-Write 3–5 sentences.
+The hardest part of the project was definitely implementing the real-time updating features through Socket.IO. I had some prior experience with Socket.IO, which definitely helped, but it's always a bit of a challenge trying to wrap your mind around how to implement both the HTTP API endpoints and the WebSocket events. There were also a lot of considerations that I had to keep in mind when implementing the real-time updates, as I had to implement a way to delay sending updates by a bit in order to not completely spam the server with WebSocket and API requests.
 
 ### **2. What are you most proud of?**
 
-Could be a feature, a UI improvement, debugging work, or personal growth.
+I think I'm most proud of the real-time features, as it was really satisfying being able to see updates happen on other clients when typing on a note. Another thing I'm proud of is probably how the desktop and mobile UI turned out, although, I would still tweak some things if I had more time.
 
 ### **3. What would you do differently next time?**
 
-Think in terms of planning, scoping, or tech choices.
+Given the time constraint, I would've probably reduced the scope a little bit. I ended up having to skip some of the stretch features, like tagging notes and being able to search/filter through notes by tag. Most of my time was spent on getting the real-time updates to work.
 
 ### **4. How did you incorporate feedback from the 12/5 check-in gallery?**
 
-Be explicit (this is graded):
-
-> “Based on feedback, I reduced scope by removing X and focused on stabilizing Y.”
-> “I reorganized my components for readability after feedback about structure.”
+Some feedback I received was to add other features, like embedding images into notes, but I chose not to and kept my scope the same as I wanted to be able to finish the MVP. Also, based on feedback, I revamped the original mobile UI, as it was not very friendly to use
 
 ---
 

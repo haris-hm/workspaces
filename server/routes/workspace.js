@@ -23,8 +23,9 @@ router.post("/", async (req, res) => {
   try {
     const currentWorkspaceIds = await Workspace.find().select("name -_id");
     const currentWorkspaceIdSet = new Set(
-      currentWorkspaceIds.map((ws) => ws.name)
+      currentWorkspaceIds.map((workspace) => workspace.name)
     );
+
     const workspaceCode = newWorkspaceCode(currentWorkspaceIdSet);
 
     const workspace = new Workspace({
