@@ -5,6 +5,7 @@ import NoteList from "../components/NoteList";
 import NoteEditor from "../components/NoteEditor";
 import InfoSidebar from "../components/InfoSidebar";
 import WorkspaceCreatorModal from "../components/WorkspaceCreatorModal";
+import NewNoteButton from "../components/NewNoteButton";
 
 import {
   createWorkspaceNote,
@@ -220,7 +221,7 @@ function Workspace({
   }
 
   return (
-    <div className="w-screen h-screen relative flex flex-col bg-stone-100">
+    <div className="w-screen h-screen relative flex flex-col scroll-auto bg-stone-100">
       <NavBar
         workspace={currentWorkspace}
         members={currentWorkspaceMembers}
@@ -228,6 +229,7 @@ function Workspace({
           setOpenWorkspaceCreator(!openWorkspaceCreator);
         }}
       />
+
       <WorkspaceCreatorModal
         display={openWorkspaceCreator}
         showCloseButton={currentWorkspace !== null}
@@ -237,39 +239,30 @@ function Workspace({
           setOpenWorkspaceCreator(false);
         }}
       />
+
       <div
-        className={`flex flex-row w-full flex-1 min-h-0 ${
+        className={`flex flex-col md:flex-row w-full flex-1 min-h-0 ${
           openWorkspaceCreator ? "blur-[3px] select-none" : ""
         }`}
       >
-        <div className="relative flex flex-col w-1/6 border-r-3 border-gray-700">
+        <div className="relative flex flex-col w-full max-md:max-h-75 order-3 md:order-1 md:w-1/4 lg:1/6 md:border-r-3 md:border-gray-700">
           <NoteList
             notes={notes}
             onSelectNote={handleSelectNote}
             blockOpen={openWorkspaceCreator}
-            className="w-full flex-1 min-h-0 overflow-y-auto pt-4 pb-15"
+            className="w-full flex-1 min-h-0 overflow-y-auto md:pt-4 pb-15"
           />
-          <button
+          <NewNoteButton
             onClick={handleCreateNewNote}
-            className={`absolute inset-x-0 bottom-0 flex flex-row align-middle items-center justify-center mx-2 mb-2 py-2 px-4 gap-2 bg-blue-800 rounded-lg drop-shadow-md drop-shadow-gray-500 border-blue-700 shrink-0 ${
-              openWorkspaceCreator
-                ? ""
-                : "hover:brightness-110 active:brightness-90 cursor-pointer"
-            }`}
             disabled={openWorkspaceCreator}
-          >
-            <img
-              src="icons/plus-circle.svg"
-              className="size-5 max-md:size-10"
-            />
-            <p className="max-md:hidden text-xl text-center text-gray-100 font-semibold">
-              New Note
-            </p>
-          </button>
+            className="absolute inset-x-0 bottom-0 max-md:hidden"
+          />
         </div>
 
         <NoteEditor
-          className="w-2/3 h-full pt-2"
+          className={`w-full order-1 max-md:min-h-125 md:order-2 md:w-1/2 lg:1/6 pt-2 ${
+            currentNote ? "" : "hidden-editor"
+          }`}
           note={currentNote}
           blockEdits={openWorkspaceCreator}
           onChangeNote={handleChangeNote}
@@ -279,7 +272,13 @@ function Workspace({
           note={currentNote}
           workspace={currentWorkspace}
           onDeleteNote={handleDeleteNote}
-          className="w-1/6 h-full pt-4"
+          className="w-full order-4 md:w-1/4 lg:1/6 h-full md:pt-4 md:border-l-3 md:border-gray-700"
+        />
+
+        <NewNoteButton
+          onClick={handleCreateNewNote}
+          disabled={openWorkspaceCreator}
+          className="mt-4 order-2 md:hidden"
         />
       </div>
     </div>

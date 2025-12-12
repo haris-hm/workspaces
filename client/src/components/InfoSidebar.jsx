@@ -12,9 +12,7 @@ function InfoSidebar({ note, workspace, onDeleteNote, className = "" }) {
   }
 
   return (
-    <div
-      className={`flex flex-col justify-between border-l-3 border-gray-700 ${className}`}
-    >
+    <div className={`flex flex-col justify-between max-md:gap-4 ${className}`}>
       <div className="flex flex-col px-4 py-2">
         {note?.updatedAt && (
           <>
@@ -44,15 +42,18 @@ function InfoSidebar({ note, workspace, onDeleteNote, className = "" }) {
             note ? "" : "hidden"
           }`}
         >
-          <img src="icons/plus-circle.svg" className="size-5 max-md:size-10" />
+          <img src="icons/trash.svg" className="size-5 max-md:size-10" />
           <p className="max-md:hidden text-xl text-center text-gray-100 font-semibold">
             Delete Note
           </p>
         </button>
 
         <div className="flex flex-col items-center border-t-2 rounded-2xl pt-2 pb-2 border-gray-700">
-          <h1 className="text-2xl font-semibold select-none">
+          <h1 className="text-lg md:text-2xl font-semibold select-none">
             Current Workspace:
+          </h1>
+          <h1 className="text-md md:hidden font-semibold select-none">
+            {workspace?.name}
           </h1>
           <div className="flex flex-row text-4xl font-bold ">
             <h2 className="select-none">#</h2>

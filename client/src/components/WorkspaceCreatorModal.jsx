@@ -13,7 +13,7 @@ function WorkspaceCreatorModal({
 
   return (
     <div
-      className={`absolute top-1/2 left-1/2 w-3/5 h-1/2 z-100 rounded-2xl bg-slate-300 transform -translate-x-1/2 -translate-y-1/2 shadow-lg flex flex-col items-center justify-center ${
+      className={`absolute top-1/2 left-1/2 w-7/8 md:w-3/5 h-1/2 z-100 rounded-2xl bg-slate-300 transform -translate-x-1/2 -translate-y-1/2 shadow-lg flex flex-col items-center justify-center ${
         display ? "" : "hidden"
       }`}
     >
@@ -35,7 +35,7 @@ function WorkspaceCreatorModal({
           className="size-6"
         />
       </button>
-      <h1 className="text-3xl font-semibold mb-6">
+      <h1 className="text-3xl text-center font-semibold mb-6">
         Join or create a workspace
       </h1>
       <WorkspaceForm
