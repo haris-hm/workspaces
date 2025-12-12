@@ -12,10 +12,10 @@ This is a full-stack note taking application which allows multiple users to conn
 
 ## Live Demo
 
-| Type                         | Link                                                                                                                                                                              |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Frontend (Deployed Site)** | [https://workspaces.harismehuljic.com](https://workspaces.harismehuljic.com/) (Also accessible through the [Netlify URL]())                                                       |
-| **Backend (API Base URL)**   | [https://workspaces-api.harismehuljic.com](https://workspaces-api.harismehuljic.com/api/routes) (Also accessible through the [Render URL](https://workspaces-ajr3.onrender.com/)) |
+| Type                         | Link                                                                                             | Alternate Link                                                 |
+| ---------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| **Frontend (Deployed Site)** | [https://workspaces.harismehuljic.com](https://workspaces.harismehuljic.com/)                    | [Netlify URL](https://workspaces-cs195.netlify.app/)           | 
+| **Backend (API Base URL)**   | [https://workspaces-api.harismehuljic.com](https://workspaces-api.harismehuljic.com/api/routes/) | [Render URL](https://workspaces-ajr3.onrender.com/api/routes/) |
 
 ---
 
