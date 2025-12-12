@@ -6,7 +6,11 @@ function noteSockets(io, socket) {
 
   // Update a note
   socket.on("note-updated", ({ workspaceId, note }) => {
-    socket.to(workspaceId).emit("note-updated", note);
+    const modifiedNote = {
+      ...note,
+      updatedAt: new Date().toISOString(),
+    };
+    socket.to(workspaceId).emit("note-updated", modifiedNote);
   });
 
   // Delete a note

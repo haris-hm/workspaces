@@ -57,6 +57,7 @@ function Workspace({
    * @param {Object} updatedNote - The updated note object.
    */
   const updateNotes = useCallback((updatedNote) => {
+    console.log("Updating note:", updatedNote);
     setNotes((prevNotes) =>
       prevNotes.map((note) =>
         note._id === updatedNote._id ? updatedNote : note
@@ -176,7 +177,10 @@ function Workspace({
    */
   function handleChangeNote(updatedNote) {
     // Update local state immediately
-    updateNotes(updatedNote);
+    updateNotes({
+      ...updatedNote,
+      updatedAt: new Date().toISOString(),
+    });
 
     // Debounce the API call and socket emission
     debouncedSocketNoteUpdate(updatedNote);
