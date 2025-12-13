@@ -38,8 +38,21 @@ The app uses WebSockets implemented using the Socket.IO library in order to faci
 
 ## Screenshots
 
-> Include 2–4 screenshots of your app.
-> Use relative paths (e.g., `/screenshots/home.png`) or full URLs.
+### Desktop UI
+
+![Desktop UI](/assets/desktop-ui.png)
+
+### Mobile UI
+
+![Mobile UI](/assets/mobile-ui.png)
+
+### Landing Page
+
+![Landing Page UI](/assets/landing-page.png)
+
+### New Workspace Modal
+
+![New Workspace Modal](/assets/workspace-changing-modal.png)
 
 ---
 
