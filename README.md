@@ -287,14 +287,18 @@ Emits:
 ## Video Walkthrough
 
 **Link to YouTube:**
-[https://your-video-link.com](https://your-video-link.com)
+[![YouTube Video Thumbnail](https://img.youtube.com/vi/lkY9bKPoGlQ/0.jpg)](https://youtu.be/lkY9bKPoGlQ)
 
-Include quick timestamps if you want extra professionalism:
+Timestamps:
 
-- **0:00–0:30** Overview
-- **0:30–1:30** Core features demo
-- **1:30–2:30** Advanced feature
-- **2:30–3:00** Technical challenge solved
+- 0:00 Intro
+- 0:17 Desktop Demo
+- 2:05 Mobile UI Demo
+- 2:38 Codebase Tour
+- 3:02 Codebase Tour - Backend Logic
+- 3:58 Codebase Tour - Frontend Logic
+- 4:38 Codebase Tour - Debouncing Technical Challenge
+- 5:23 Codebase Tour - Frontend Logic (cont.)
 
 ---
 
