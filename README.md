@@ -286,8 +286,7 @@ Emits:
 
 ## Video Walkthrough
 
-**Link to YouTube:**
-[![YouTube Video Thumbnail](https://img.youtube.com/vi/lkY9bKPoGlQ/0.jpg)](https://youtu.be/lkY9bKPoGlQ)
+**View the showcase on [YouTube](https://youtu.be/lkY9bKPoGlQ)**
 
 Timestamps:
 
